@@ -248,7 +248,7 @@ void lkl_sysctl_parse_write(const char *sysctls)
 	char strings[256];
 	int ret = 0;
 
-	strcpy(strings, sysctls);
+	strncpy(strings, sysctls, sizeof(strings));
 	for (token = strtok_r(strings, ";", &saveptr); token;
 	     token = strtok_r(NULL, ";", &saveptr)) {
 		key = strtok(token, "=");
