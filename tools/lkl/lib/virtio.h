@@ -1,7 +1,6 @@
 #ifndef _LKL_LIB_VIRTIO_H
 #define _LKL_LIB_VIRTIO_H
 
-#include <stdint.h>
 #include <lkl_host.h>
 
 #define PAGE_SIZE		4096
@@ -16,9 +15,9 @@
 #define VIRTIO_REQ_MAX_BUFS	(MAX_SKB_FRAGS + 2)
 
 struct virtio_req {
-	uint16_t buf_count;
+	__lkl__u16 buf_count;
 	struct iovec buf[VIRTIO_REQ_MAX_BUFS];
-	uint32_t total_len;
+	__lkl__u32 total_len;
 };
 
 struct virtio_dev;
@@ -52,38 +51,38 @@ struct virtio_dev_ops {
 };
 
 struct virtio_dev {
-	uint32_t device_id;
-	uint32_t vendor_id;
-	uint64_t device_features;
-	uint32_t device_features_sel;
-	uint64_t driver_features;
-	uint32_t driver_features_sel;
-	uint32_t queue_sel;
+	__lkl__u32 device_id;
+	__lkl__u32 vendor_id;
+	__lkl__u64 device_features;
+	__lkl__u32 device_features_sel;
+	__lkl__u64 driver_features;
+	__lkl__u32 driver_features_sel;
+	__lkl__u32 queue_sel;
 	struct virtio_queue *queue;
-	uint32_t queue_notify;
-	uint32_t int_status;
-	uint32_t status;
-	uint32_t config_gen;
+	__lkl__u32 queue_notify;
+	__lkl__u32 int_status;
+	__lkl__u32 status;
+	__lkl__u32 config_gen;
 
 	struct virtio_dev_ops *ops;
 	int irq;
 	void *config_data;
 	int config_len;
 	void *base;
-	uint32_t virtio_mmio_id;
+	__lkl__u32 virtio_mmio_id;
 };
 
 int virtio_dev_setup(struct virtio_dev *dev, int queues, int num_max);
 int virtio_dev_cleanup(struct virtio_dev *dev);
-uint32_t virtio_get_num_bootdevs(void);
+__lkl__u32 virtio_get_num_bootdevs(void);
 /**
  * virtio_req_complete - complete a virtio request
  *
  * @req - the request to be completed
  * @len - the total size in bytes of the completed request
  */
-void virtio_req_complete(struct virtio_req *req, uint32_t len);
-void virtio_process_queue(struct virtio_dev *dev, uint32_t qidx);
+void virtio_req_complete(struct virtio_req *req, __lkl__u32 len);
+void virtio_process_queue(struct virtio_dev *dev, __lkl__u32 qidx);
 void virtio_set_queue_max_merge_len(struct virtio_dev *dev, int q, int len);
 
 #define container_of(ptr, type, member) \

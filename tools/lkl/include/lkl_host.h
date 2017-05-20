@@ -24,7 +24,7 @@ extern char lkl_virtio_devs[4096];
 #else
 struct iovec {
 	void *iov_base;
-	size_t iov_len;
+	unsigned long iov_len;
 };
 #endif
 
@@ -77,7 +77,7 @@ struct lkl_dev_blk_ops {
 
 struct lkl_netdev {
 	struct lkl_dev_net_ops *ops;
-	uint8_t has_vnet_hdr: 1;
+	__lkl__u8 has_vnet_hdr: 1;
 };
 
 /**

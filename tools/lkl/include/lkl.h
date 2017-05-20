@@ -63,8 +63,8 @@ static inline long long lkl_sys_lseek(unsigned int fd, __lkl__kernel_loff_t off,
 }
 #endif
 
-static inline void *lkl_sys_mmap(void *addr, size_t length, int prot, int flags,
-				 int fd, off_t offset)
+static inline void *lkl_sys_mmap(void *addr, unsigned long length, int prot, int flags,
+				 int fd, __lkl__kernel_off_t offset)
 {
 	return (void *)lkl_sys_mmap_pgoff((long)addr, length, prot, flags, fd,
 					  offset >> 12);
@@ -137,7 +137,7 @@ int lkl_disk_remove(struct lkl_disk disk);
  * @pdevid - pointer to memory where dev id will be returned
  * @returns - 0 on success, a negative value on error
  */
-int lkl_get_virtio_blkdev(int disk_id, unsigned int part, uint32_t *pdevid);
+int lkl_get_virtio_blkdev(int disk_id, unsigned int part, unsigned int *pdevid);
 
 
 /**
