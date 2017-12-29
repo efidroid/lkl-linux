@@ -292,7 +292,6 @@
 	RODATA_SECTION    : AT(ADDR(RODATA_SECTION) - LOAD_OFFSET) {	\
 		VMLINUX_SYMBOL(__start_rodata) = .;			\
 		*(RODATA_SECTION) *(RODATA_SECTION.*)			\
-		RO_AFTER_INIT_DATA	/* Read only after init */	\
 		KEEP(*(__vermagic))	/* Kernel version magic */	\
 		. = ALIGN(8);						\
 		VMLINUX_SYMBOL(__start___tracepoints_ptrs) = .;		\
@@ -896,6 +895,7 @@
 	. = ALIGN(PAGE_SIZE);						\
 	.data : AT(ADDR(.data) - LOAD_OFFSET) {				\
 		INIT_TASK_DATA(inittask)				\
+		RO_AFTER_INIT_DATA	/* Read only after init */	\
 		NOSAVE_DATA						\
 		PAGE_ALIGNED_DATA(pagealigned)				\
 		CACHELINE_ALIGNED_DATA(cacheline)			\
